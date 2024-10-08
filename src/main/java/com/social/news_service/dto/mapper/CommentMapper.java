@@ -26,6 +26,7 @@ public interface CommentMapper {
     Comment commentRequestToComment(CommentRequest request);
 
     @Mapping(target = "replies", source = "childComments", qualifiedByName = "mapReplies")
+    @Mapping(target = "parentCommentId", ignore = true)
     CommentResponse commentToCommentResponse(Comment comment);
 
     List<CommentResponse> commentsToCommentResponses(List<Comment> comments);

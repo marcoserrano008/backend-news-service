@@ -31,8 +31,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/public/**", "/error").permitAll()
-                                .anyRequest().authenticated()
+//                                .requestMatchers("/public/**", "/error").permitAll()
+//                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)

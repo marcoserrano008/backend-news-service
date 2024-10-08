@@ -18,5 +18,7 @@ public class CommentResponse {
 
     private LocalDateTime createdDate;
 
+    private Long parentCommentId;
+
     private List<CommentResponse> replies;
 }

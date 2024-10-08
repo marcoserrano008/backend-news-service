@@ -41,6 +41,8 @@ public class CreateCommentServiceImpl implements CreateCommentService {
         CommentResponse response = CommentMapper.mapper.commentToCommentResponse(comment);
         response.setSenderUser(senderUser);
 
+        this.addParentCommentId(request, response);
+
         return response;
     }
 
@@ -60,6 +62,12 @@ public class CreateCommentServiceImpl implements CreateCommentService {
         }
 
         return comment;
+    }
+
+    private void addParentCommentId(CommentRequest commentRequest, CommentResponse commentResponse) {
+        if (Objects.nonNull(commentRequest.getParentCommentId())) {
+            commentResponse.setParentCommentId(commentRequest.getParentCommentId());
+        }
     }
 
     private Bulletin findBulletinById(Long bulletinId) {

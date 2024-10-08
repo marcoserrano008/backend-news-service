@@ -6,6 +6,7 @@ import com.social.news_service.service.bulletin.CreateBulletinService;
 import com.social.news_service.service.user.GetUserIdFromTokenService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,16 +18,21 @@ public class BulletinCreateController {
 
     private final GetUserIdFromTokenService getUserIdFromTokenService;
 
+    private final SimpMessagingTemplate simpMessagingTemplate;
+
     public BulletinCreateController(CreateBulletinService createBulletinService,
-                                    GetUserIdFromTokenService getUserIdFromTokenService) {
+                                    GetUserIdFromTokenService getUserIdFromTokenService,
+                                    SimpMessagingTemplate simpMessagingTemplate) {
         this.createBulletinService = createBulletinService;
         this.getUserIdFromTokenService = getUserIdFromTokenService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @PostMapping("/bulletins")
     public ResponseEntity<BulletinResponse> createBulletin(@Valid @ModelAttribute BulletinRequest request) {
         Long userId = getUserIdFromTokenService.getCurrentUserId();
         BulletinResponse bulletinResponse = createBulletinService.createBulletin(request, userId);
+        simpMessagingTemplate.convertAndSend("/topic/bulletins", bulletinResponse);
 
         return ResponseEntity.ok(bulletinResponse);
     }
