@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CreateBulletinService {
 
-    BulletinResponse createBulletin(BulletinRequest request);
+    BulletinResponse createBulletin(BulletinRequest request, Long userId);
 }

@@ -3,7 +3,10 @@ package com.social.news_service.controller;
 import com.social.news_service.dto.request.CommentRequest;
 import com.social.news_service.dto.response.CommentResponse;
 import com.social.news_service.service.comment.CreateCommentService;
+import com.social.news_service.service.user.GetUserIdFromTokenService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +17,18 @@ public class CommentCreateController {
 
     private final CreateCommentService createCommentService;
 
-    public CommentCreateController(CreateCommentService createCommentService) {
+    private final GetUserIdFromTokenService getUserIdFromTokenService;
+
+    public CommentCreateController(CreateCommentService createCommentService,
+                                   GetUserIdFromTokenService getUserIdFromTokenService) {
         this.createCommentService = createCommentService;
+        this.getUserIdFromTokenService = getUserIdFromTokenService;
     }
 
-    @PostMapping("/bulletins/comments")
-    public ResponseEntity<CommentResponse> createComment(@RequestBody CommentRequest request) {
-        CommentResponse commentResponse = createCommentService.createComment(request);
+    @PostMapping("/bulletins/{bulletin-id}/comments")
+    public ResponseEntity<CommentResponse> createComment(@Valid @PathVariable("bulletin-id") Long bulletinId, @RequestBody CommentRequest request) {
+        Long userId = getUserIdFromTokenService.getCurrentUserId();
+        CommentResponse commentResponse = createCommentService.createComment(request, bulletinId, userId);
         return ResponseEntity.ok(commentResponse);
     }
 }

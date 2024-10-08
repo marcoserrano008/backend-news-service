@@ -12,7 +12,7 @@ public class BulletinResponse {
 
     private Long accountId;
 
-    private Long senderUserId;
+    private UserResponse senderUser;
 
     private String body;
 

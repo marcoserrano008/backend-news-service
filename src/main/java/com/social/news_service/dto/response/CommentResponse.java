@@ -10,7 +10,7 @@ public class CommentResponse {
 
     private Long id;
 
-    private Long senderUserId;
+    private UserResponse senderUser;
 
     private String content;
 

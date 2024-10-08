@@ -24,11 +24,11 @@ public class CreateBulletinServiceImpl implements CreateBulletinService {
     }
 
     @Override
-    public BulletinResponse createBulletin(BulletinRequest request) {
+    public BulletinResponse createBulletin(BulletinRequest request, Long userId) {
 
         Bulletin bulletin = new Bulletin();
-        bulletin.setAccountId(request.getAccountId());
-        bulletin.setSenderUserId(request.getSenderUserId());
+        bulletin.setAccountId(userId);
+        bulletin.setSenderUserId(userId);
         bulletin.setBody(request.getBody());
         bulletin.setCommentsCounter(0);
         bulletinRepository.save(bulletin);

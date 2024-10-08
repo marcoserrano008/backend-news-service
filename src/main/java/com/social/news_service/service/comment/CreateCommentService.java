@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CreateCommentService {
 
-   CommentResponse createComment(CommentRequest request);
+   CommentResponse createComment(CommentRequest request, Long bulletinId, Long userId);
 }

@@ -14,12 +14,11 @@ public class BulletinSearchController {
 
     private final GetBulletinService getBulletinService;
 
-
     public BulletinSearchController(GetBulletinService getBulletinService) {
         this.getBulletinService = getBulletinService;
     }
 
-    @GetMapping("/bulletins")
+    @GetMapping("public/bulletins")
     public ResponseEntity<Page<BulletinResponse>> getBulletins(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
