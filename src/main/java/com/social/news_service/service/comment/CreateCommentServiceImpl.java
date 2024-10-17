@@ -10,6 +10,7 @@ import com.social.news_service.repository.BulletinRepository;
 import com.social.news_service.repository.CommentRepository;
 import com.social.news_service.service.user.GetUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -32,6 +33,7 @@ public class CreateCommentServiceImpl implements CreateCommentService {
     }
 
     @Override
+    @Transactional
     public CommentResponse createComment(CommentRequest request, Long bulletinId, Long userId) {
         Bulletin bulletin = findBulletinById(bulletinId);
         Comment comment = createNewComment(request, bulletin, userId);

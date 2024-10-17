@@ -8,6 +8,7 @@ import com.social.news_service.entity.Bulletin;
 import com.social.news_service.repository.BulletinRepository;
 import com.social.news_service.service.attachment.CreateAttachmentService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -24,6 +25,7 @@ public class CreateBulletinServiceImpl implements CreateBulletinService {
     }
 
     @Override
+    @Transactional
     public BulletinResponse createBulletin(BulletinRequest request, Long userId) {
 
         Bulletin bulletin = new Bulletin();

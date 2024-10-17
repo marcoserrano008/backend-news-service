@@ -7,6 +7,7 @@ import com.social.news_service.entity.Comment;
 import com.social.news_service.repository.CommentRepository;
 import com.social.news_service.service.user.GetUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class GetCommentServiceImpl implements GetCommentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CommentResponse> getCommentsByBulletinId(Long bulletinId) {
         List<Comment> comments = this.commentRepository.findByBulletinIdAndParentCommentIsNull(bulletinId);
         return mapToCommentResponse(comments);

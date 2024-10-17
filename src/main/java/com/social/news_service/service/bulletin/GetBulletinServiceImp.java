@@ -13,6 +13,7 @@ import com.social.news_service.util.SearchCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GetBulletinServiceImp implements GetBulletinService {
@@ -27,6 +28,7 @@ public class GetBulletinServiceImp implements GetBulletinService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<BulletinResponse> getBulletins(BulletinSearchRequest request) {
         Pageable pageable = PaginationAndSortingHelper.createPageable(request.getPage(),
                 request.getSize(),
