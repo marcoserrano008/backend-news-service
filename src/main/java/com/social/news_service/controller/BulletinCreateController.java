@@ -4,6 +4,7 @@ import com.social.news_service.dto.request.BulletinRequest;
 import com.social.news_service.dto.response.BulletinResponse;
 import com.social.news_service.service.bulletin.CreateBulletinService;
 import com.social.news_service.service.user.GetUserIdFromTokenService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -28,6 +29,8 @@ public class BulletinCreateController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
+    @Operation(summary = "Create a bulletin",
+            description = "Submit a new bulletin and broadcast it via WebSocket.")
     @PostMapping("/bulletins")
     public ResponseEntity<BulletinResponse> createBulletin(@Valid @ModelAttribute BulletinRequest request) {
         Long userId = getUserIdFromTokenService.getCurrentUserId();

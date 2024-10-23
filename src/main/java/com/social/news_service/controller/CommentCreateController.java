@@ -4,6 +4,7 @@ import com.social.news_service.dto.request.CommentRequest;
 import com.social.news_service.dto.response.CommentResponse;
 import com.social.news_service.service.comment.CreateCommentService;
 import com.social.news_service.service.user.GetUserIdFromTokenService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -30,6 +31,8 @@ public class CommentCreateController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
+    @Operation(summary = "Create a comment on a bulletin",
+            description = "Add a comment to a bulletin and broadcast it via WebSocket.")
     @PostMapping("/bulletins/{bulletin-id}/comments")
     public ResponseEntity<CommentResponse> createComment(@Valid @PathVariable("bulletin-id") Long bulletinId, @RequestBody CommentRequest request) {
         Long userId = getUserIdFromTokenService.getCurrentUserId();

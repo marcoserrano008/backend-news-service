@@ -1,12 +1,14 @@
 package com.social.news_service.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = Constants.AttachmentTable.TABLE_NAME)
 @SQLRestriction(Constants.SQL_RESTRICTION)

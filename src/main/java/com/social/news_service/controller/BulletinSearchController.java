@@ -3,6 +3,7 @@ package com.social.news_service.controller;
 import com.social.news_service.dto.request.BulletinSearchRequest;
 import com.social.news_service.dto.response.BulletinResponse;
 import com.social.news_service.service.bulletin.GetBulletinService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,8 @@ public class BulletinSearchController {
         this.getBulletinService = getBulletinService;
     }
 
+    @Operation(summary = "Get paginated bulletins",
+            description = "Retrieve paginated bulletins with optional filters for body, account ID, and sender user ID.")
     @GetMapping("public/bulletins")
     public ResponseEntity<Page<BulletinResponse>> getBulletins(
             @RequestParam(defaultValue = "0") Integer page,

@@ -1,9 +1,11 @@
 package com.social.news_service.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class BulletinSearchRequest {
 

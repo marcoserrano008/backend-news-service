@@ -1,6 +1,5 @@
 package com.social.news_service.exception;
 
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
